@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-t68m7jev11*m!xtio)6vfvi)94e+f7n3_0kmcot04dh^*(@^b&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'corsheaders',
     'rest_framework',
 
     'backend',
@@ -54,6 +55,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'indoor.urls'
@@ -109,6 +113,47 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+CORS_ALLOWED_ORIGINS = [
+   "http://localhost",
+   "http://192.168.1.5",
+]
+
+#CORS_ALLOWED_ORIGIN_REGEXES = [
+#    r"^https://\w+\.example\.com$",
+#]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOW_METHODS = [
+#     "DELETE",
+#     "GET",
+#     "OPTIONS",
+#     "PATCH",
+#     "POST",
+#     "PUT",
+# ]
+
+# CORS_ALLOW_HEADERS = [
+#     "accept",
+#     "accept-encoding",
+#     "authorization",
+#     "content-type",
+#     "dnt",
+#     "origin",
+#     "user-agent",
+#     "x-csrftoken",
+#     "x-requested-with",
+# ]
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:19006",
+#    "http://localhost:19006",
+# ]
+
+# CSRF_TRUSTED_ORIGINS = [
+#     "http://localhost:19006"
+# ]
 
 
 

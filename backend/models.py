@@ -33,8 +33,8 @@ class Worker(models.Model):
         verbose_name = 'Worker'
         verbose_name_plural = 'Workers'
 
-    # def __str__(self):
-    #     return self.user.username
+    def __str__(self):
+        return self.user.username
 
 
 
@@ -62,8 +62,8 @@ class Profession(models.Model):
         verbose_name = 'WorkerService'
         verbose_name_plural = 'WorkerServices'
 
-    # def __str__(self):
-    #     return self.worker.username
+    def __str__(self):
+        return self.worker.user.username
 
 
 
