@@ -31,7 +31,43 @@ class Workers(ListAPIView):
 
 
 
-class WorkerProfile(RetrieveAPIView):
-    # queryset = Worker.objects.all()
-    queryset = Profession.objects.all()
+class WorkerProfile(ListAPIView):
+    # queryset = Profession.objects.all()
     serializer_class = WorkerProfileSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['pk']
+
+        try:
+            return Profession.objects.filter(worker__user__id=id)
+        except:
+            return {}
+        # if Service.objects.get(name=service):
+        #         service_id = Service.objects.get(name=service).id
+        #         return Profession.objects.filter(service__id=service_id, worker__pincode = pincode)
+        # else:
+        #     return Profession.objects.all()
+
+
+
+
+
+
+class WorkerReviews(ListAPIView):
+    serializer_class = WorkerReviewSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['pk']
+
+        try:
+            return Review.objects.filter(worker__user__id=id)
+        except:
+            return {}
+        # if Service.objects.get(name=service):
+        #         service_id = Service.objects.get(name=service).id
+        #         return Profession.objects.filter(service__id=service_id, worker__pincode = pincode)
+        # else:
+        #     return Profession.objects.all()
+
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]

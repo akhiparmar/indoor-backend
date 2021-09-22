@@ -114,10 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-CORS_ALLOWED_ORIGINS = [
-   "http://localhost",
-   "http://192.168.1.5",
-]
+CORS_ALLOWED_ORIGINS = ["http://localhost","http://192.168.1.5"]
 
 #CORS_ALLOWED_ORIGIN_REGEXES = [
 #    r"^https://\w+\.example\.com$",

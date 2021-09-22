@@ -9,24 +9,21 @@ class WorkerCardSerializer(serializers.ModelSerializer):
         class UserModelSerializer(serializers.ModelSerializer):
             class Meta:
                 model = User
-                fields = ['id', 'username', 'first_name', 'last_name']
+                fields = ['id', 'first_name', 'last_name']
 
         user = UserModelSerializer()
+
         class Meta:
             model = Worker
-            fields = '__all__'
+            fields = ['user', 'image', 'rating', 'mobile', 'pincode']
 
-    class Service(serializers.ModelSerializer):
-        class Meta:
-            model = Service
-            fields = ['name']
 
     worker = Worker()
     # service = Service(many=True)
 
     class Meta:
         model = Profession
-        fields = ['id','worker']
+        fields = ['worker']
 
 
 
@@ -37,12 +34,12 @@ class WorkerProfileSerializer(serializers.ModelSerializer,):
         class UserModelSerializer(serializers.ModelSerializer):
             class Meta:
                 model = User
-                fields = ['id', 'username', 'first_name', 'last_name']
+                fields = ['id', 'first_name', 'last_name']
 
         user = UserModelSerializer()
         class Meta:
             model = Worker
-            fields = '__all__'
+            fields = ['user', 'image', 'rating', 'mobile', 'pincode', 'address']
 
     class Service(serializers.ModelSerializer):
         class Meta:
@@ -55,4 +52,26 @@ class WorkerProfileSerializer(serializers.ModelSerializer,):
     class Meta:
         # model = Worker
         model = Profession
-        fields = '__all__'
+        fields = ['worker', 'service']
+
+
+
+
+
+
+class WorkerReviewSerializer(serializers.ModelSerializer):
+    class Customer(serializers.ModelSerializer):
+        class UserModelSerializer(serializers.ModelSerializer):
+            class Meta:
+                model = User
+                fields = ['id', 'first_name', 'last_name']
+
+        user = UserModelSerializer()
+        class Meta:
+            model = Customer
+            fields = ['user']
+
+    customer = Customer()
+    class Meta:
+        model = Review
+        fields = ['customer', 'rating', 'date', 'feedback']
