@@ -73,7 +73,7 @@ class Booking(models.Model):
     id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=False)
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE, null=False, blank=False)
-    booing_date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    booking_date = models.DateTimeField(auto_now_add=True, null=False, blank=False)
     accepted = models.BooleanField(default=False)
     acceptance_date = models.DateTimeField(null=True, blank=True)
 

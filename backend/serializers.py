@@ -1,17 +1,14 @@
-from django.db.models import fields
 from rest_framework import serializers
 from .models import *
 from django.contrib.auth.models import User
-from rest_framework.fields import CurrentUserDefault
 
 
-#This is SHOW WorkerCard deitail
 class WorkerCardSerializer(serializers.ModelSerializer):
     class Worker(serializers.ModelSerializer):
         class UserModelSerializer(serializers.ModelSerializer):
             class Meta:
                 model = User
-                fields = ['id', 'first_name', 'last_name']
+                fields = ['first_name', 'last_name']
 
         user = UserModelSerializer()
 
@@ -36,7 +33,7 @@ class WorkerProfileSerializer(serializers.ModelSerializer,):
         class UserModelSerializer(serializers.ModelSerializer):
             class Meta:
                 model = User
-                fields = ['id', 'first_name', 'last_name']
+                fields = ['first_name', 'last_name']
 
         user = UserModelSerializer()
         class Meta:
@@ -66,7 +63,7 @@ class WorkerReviewSerializer(serializers.ModelSerializer):
         class UserModelSerializer(serializers.ModelSerializer):
             class Meta:
                 model = User
-                fields = ['id', 'first_name', 'last_name']
+                fields = ['first_name', 'last_name']
 
         user = UserModelSerializer()
         class Meta:
@@ -80,11 +77,36 @@ class WorkerReviewSerializer(serializers.ModelSerializer):
 
 
 
+class WorkerReviewCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['worker', 'rating', 'feedback']
+
+    def create(self, validated_data, **kwargs):
+        worker_id = validated_data['worker']
+        rating = validated_data['rating']
+        feedback = validated_data['feedback']
+        worker = Worker.objects.get(id=worker_id)
+        customer = kwargs['customer']
+        customer = Customer.objects.get(id=customer)
+        review = Review.objects.create(customer=customer, worker=worker, rating=rating, feedback=feedback)
+        return review
+
+
+
 class BookWorkerSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Booking
-        fields = '__all__'
+        fields = ['worker']
+
+    def create(self, validated_data, **kwargs):
+        worker = validated_data['worker']
+        worker = Worker.objects.get(id=worker)
+        customer = kwargs['customer']
+        customer = Customer.objects.get(id=customer)
+        book = Booking.objects.create(customer=customer, worker=worker)
+        return book
 
 
 
@@ -92,10 +114,31 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
     class UserModelSerializer(serializers.ModelSerializer):
             class Meta:
                 model = User
-                fields = ['id', 'first_name', 'last_name']
+                fields = ['id', 'first_name', 'last_name', 'username']
 
     user = UserModelSerializer()
 
     class Meta:
         model = Customer
         fields = '__all__'
+
+
+#This is Serializer for all Booking Records
+class BookingSerializer(serializers.ModelSerializer):
+    class WorkerProfileSerializer(serializers.ModelSerializer,):
+        class UserModelSerializer(serializers.ModelSerializer):
+            class Meta:
+                model = User
+                fields = ['first_name', 'last_name']
+
+        user = UserModelSerializer()
+
+        class Meta:
+            model = Worker
+            fields = ['id', 'user', 'image']
+
+    worker = WorkerProfileSerializer()
+
+    class Meta:
+        model = Booking
+        exclude = ['id', 'customer']
