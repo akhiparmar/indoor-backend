@@ -23,7 +23,6 @@ class Customer(models.Model):
 class Worker(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='image/', null=False, blank=False)
     rating = models.PositiveSmallIntegerField(null=True, blank=True, default=1)
     mobile = models.BigIntegerField(unique=True, null=False, blank=False)
     pincode = models.CharField(max_length=6, null=False, blank=False)

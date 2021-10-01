@@ -15,3 +15,13 @@ class CustomerRegister(APIView):
             serialize.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serialize.errors, status=status.HTTP_208_ALREADY_REPORTED)
+
+
+
+class WorkerRegister(APIView):
+    def post(self, req):
+        serialize = WorkerCreateSerializer(data=req.data)
+        if serialize.is_valid():
+            serialize.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serialize.errors, status=status.HTTP_208_ALREADY_REPORTED)

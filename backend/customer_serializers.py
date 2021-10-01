@@ -14,7 +14,7 @@ class WorkerCardSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Worker
-            fields = ['id', 'user', 'image', 'rating', 'mobile', 'pincode']
+            fields = ['id', 'user', 'rating', 'mobile', 'pincode']
 
 
     worker = Worker()
@@ -28,7 +28,7 @@ class WorkerCardSerializer(serializers.ModelSerializer):
 
 
 #This is Serializer for Worker profile
-class WorkerProfileSerializer(serializers.ModelSerializer,):
+class WorkerProfileSerializer(serializers.ModelSerializer):
     class Worker(serializers.ModelSerializer):
         class UserModelSerializer(serializers.ModelSerializer):
             class Meta:
@@ -38,7 +38,7 @@ class WorkerProfileSerializer(serializers.ModelSerializer,):
         user = UserModelSerializer()
         class Meta:
             model = Worker
-            fields = ['id', 'user', 'image', 'rating', 'mobile', 'pincode', 'address']
+            fields = ['id', 'user', 'rating', 'mobile', 'pincode', 'address']
 
     class Service(serializers.ModelSerializer):
         class Meta:
@@ -135,7 +135,7 @@ class BookingSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Worker
-            fields = ['id', 'user', 'image']
+            fields = ['id', 'user']
 
     worker = WorkerProfileSerializer()
 

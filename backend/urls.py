@@ -1,7 +1,7 @@
 
 from django.urls import path, re_path
 
-from backend import customerviews
+from backend import customerviews, workerviews
 
 
 
@@ -12,5 +12,12 @@ urlpatterns = [
     path('user/worker/book/', customerviews.BookWorker.as_view()),
     path('user/profile/', customerviews.Profile.as_view()),
     path('user/bookings/', customerviews.MyBookings.as_view()),
+
+
+
+    path('worker/bookings/', workerviews.MyBookings.as_view()),
+    path('worker/profile/', workerviews.Profile.as_view()),
+    path('worker/customer/book/<int:pk>/', workerviews.BookCustomer.as_view()),
+
 
 ]

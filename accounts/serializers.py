@@ -34,3 +34,42 @@ class CustomerCreateSerializer(serializers.ModelSerializer):
         user = Customer.objects.create(mobile=mobile, address=address, user=user)
         user.save()
         return user
+        
+
+
+
+
+class WorkerCreateSerializer(serializers.ModelSerializer):
+    class UserModelSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ['first_name', 'last_name', 'username', 'password' ]
+
+    user = UserModelSerializer()
+
+    class Meta:
+        model = Worker
+        fields = '__all__'
+
+    def create(self, validated_data):
+        us = validated_data['user']
+        # breakpoint()
+
+        user = User.objects.create(
+            username=us['username'],
+            first_name=us['first_name'],
+            last_name=us['last_name']
+        )
+        #id,user,image,mobile,pincode,address
+
+        user.set_password(us['password'])
+        user.save()
+
+
+        mobile = validated_data['mobile']
+        pincode = validated_data['pincode']
+        address = validated_data['address']  
+
+        user = Worker.objects.create(user=user, mobile=mobile, pincode=pincode, address=address)
+        user.save()
+        return user
