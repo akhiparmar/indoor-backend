@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 # admin.site.register(Customer)
 # admin.site.register(Worker)
-admin.site.register(Service)
+#admin.site.register(Service)
 # admin.site.register(Profession)
 # admin.site.register(Booking)
 # admin.site.register(Review)
@@ -39,6 +39,11 @@ class ReviewAdmin(admin.ModelAdmin):
 @admin.register(Profession)
 class ProfessionAdmin(admin.ModelAdmin):
     list_display = ("id", "worker")
+    
+
+@admin.register(Service)
+class ProfessionAdmin(admin.ModelAdmin):
+    list_display = ("id", "name")
 
 
 @admin.register(Booking)

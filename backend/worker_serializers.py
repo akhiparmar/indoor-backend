@@ -41,3 +41,17 @@ class WorkerProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Worker
         fields = '__all__'
+
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
+        fields = "__all__"
+
+
+class ProfessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profession
+        fields = "__all__"
+        # fields = ['worker', 'service']

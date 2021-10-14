@@ -18,6 +18,10 @@ urlpatterns = [
     path('worker/bookings/', workerviews.MyBookings.as_view()),
     path('worker/profile/', workerviews.Profile.as_view()),
     path('worker/customer/book/<int:pk>/', workerviews.BookCustomer.as_view()),
-
+    path('worker/services/', workerviews.Services.as_view()),
+    path('worker/myservices/', workerviews.MyServices.as_view()),
+    path('worker/services/create/', workerviews.ProfessionCreate.as_view()),
+    path('worker/services/<int:pk>/', workerviews.ProfessionUpdate.as_view()),
+    
 
 ]

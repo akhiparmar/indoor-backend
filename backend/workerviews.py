@@ -1,6 +1,7 @@
 
+from typing import List
 from .models import *
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView
 from .worker_serializers import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -61,6 +62,45 @@ class BookCustomer(APIView):
             return Response({}, status=status.HTTP_202_ACCEPTED)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class Services(ListAPIView):
+    serializer_class = ServiceSerializer
+    queryset = Service.objects.all()
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class MyServices(APIView):
+    def get(self, request):
+        try:
+            worker = Worker.objects.get(user__id=self.request.user.id)
+            worker = Profession.objects.get(worker=worker)
+            serialize = ProfessionSerializer(worker)
+            return Response(serialize.data)
+        except:
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class ProfessionCreate(CreateAPIView):
+    serializer_class = ProfessionSerializer
+    queryset = Profession.objects.all()
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class ProfessionUpdate(UpdateAPIView):
+    serializer_class = ProfessionSerializer
+    queryset = Profession.objects.all()
 
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
